@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import ProductsView from "@/views/ProductsView.vue";
-import BerriesView from "@/views/BerriesView.vue";
+import ProductsView from "../views/ProductsView.vue";
+import BerriesView from "../views/BerriesView.vue";
 
 const routes = [
   { path: "/", redirect: "/products" },
