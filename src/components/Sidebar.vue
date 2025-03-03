@@ -1,6 +1,14 @@
 <template>
-  <div class="w-64 h-screen bg-gray-800 text-white p-4">
-    <router-link to="/products" class="block py-2"> {{ $t("products") }} </router-link>
-    <router-link to="/berries" class="block py-2"> {{ $t("berries") }} </router-link>
-  </div>
+  <aside class="w-64 h-screen bg-gray-800 text-white fixed top-0 left-0">
+    <nav class="p-4">
+      <ul>
+        <li class="mb-2">
+          <router-link to="/products" class="block p-2 hover:bg-gray-700">Products</router-link>
+        </li>
+        <li>
+          <router-link to="/berries" class="block p-2 hover:bg-gray-700">Berries</router-link>
+        </li>
+      </ul>
+    </nav>
+  </aside>
 </template>
