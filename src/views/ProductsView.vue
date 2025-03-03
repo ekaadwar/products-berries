@@ -1,18 +1,28 @@
 <template>
   <div>
     <h1>{{ $t("products") }}</h1>
-    <input type="text" v-model="searchQuery" placeholder="Search..." />
-    <button @click="fetchProducts">Refresh</button>
+    <div class="my-5 ">
+      <input class="bg-white px-4 py-2 rounded-sm mr-2" type="text" v-model="searchQuery" placeholder="Search..." />
+      <button class="bg-green-300 px-4 py-2 rounded-sm" @click="fetchProducts">Refresh</button>
+    </div>
     
     <div v-if="loading">Loading...</div>
-    <div v-else>
-      <div v-for="product in filteredProducts" :key="product.id" class="card">
-        <img :src="product.image" />
-        <h2>{{ product.title }}</h2>
-        <p>{{ product.category }}</p>
-        <p>${{ product.price }}</p>
-        <button @click="editProduct(product)">Edit</button>
-        <button @click="deleteProduct(product.id)">Delete</button>
+    <div v-else class="grid grid-cols-4 gap-4">
+      <div v-for="product in filteredProducts" :key="product.id" class="bg-white overflow-hidden rounded-sm flex flex-col justify-between">
+        <div class="flex-1 flex items-center p-2">
+          <img :src="product.image" />
+        </div>
+        <div class="p-8">
+          <h2 class="text-2xl">{{ product.title }}</h2>
+          <div class="my-4">
+            <p>{{ product.category }}</p>
+            <p>${{ product.price }}</p>
+          </div>
+          <div class="flex justify-between">
+            <button class="bg-yellow-400 px-4 py-2 rounded-sm" @click="editProduct(product)">Edit</button>
+            <button class="bg-red-400 px-4 py-2 rounded-sm" @click="deleteProduct(product.id)">Delete</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
