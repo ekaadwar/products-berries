@@ -3,19 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faHome, faPen, faTrash, faArrowDownAZ, faArrowUpAZ, faEye } from "@fortawesome/free-solid-svg-icons";
 import { faRaspberryPi } from "@fortawesome/free-brands-svg-icons";
 
-
-const icons = [
-  faHome,
-  faPen,
-  faTrash,
-  faArrowDownAZ,
-  faArrowUpAZ,
-  faEye,
-  faRaspberryPi
-];
-
-icons.forEach((icon) => {
-  library.add(icon);
-});
+// Menambahkan ikon ke library
+library.add(faHome, faPen, faTrash, faArrowDownAZ, faArrowUpAZ, faEye, faRaspberryPi);
 
 export default FontAwesomeIcon;
