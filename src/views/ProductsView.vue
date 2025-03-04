@@ -3,18 +3,22 @@
     <h1>{{ $t("products") }}</h1>
     
     <div class="my-5 ">
-      <input class="bg-white px-4 py-2 rounded-sm mr-2" type="text" v-model="productStore.searchQuery" :placeholder="`${ $t('search') }`" />
+      <input class="bg-white px-4 py-2 rounded-sm" type="text" v-model="productStore.searchQuery" :placeholder="`${ $t('search') }`" />
+
       <button class="bg-emerald-300 px-4 py-2 rounded-sm" @click="onSort" >
         {{$t("sort")}}
         <font-awesome-icon v-if="sortAsc" :icon="['fas', 'arrow-down-a-z']" />
         <font-awesome-icon v-else :icon="['fas', 'arrow-up-a-z']" />
       </button>
+
+      <button class="bg-orange-300 px-4 py-2 rounded-sm" @click="showModal = true">Tambah</button>
+
       <button class="bg-green-300 px-4 py-2 rounded-sm" @click="productStore.fetchProducts">{{ $t('refresh') }}</button>
     </div>
     
     <div v-if="productStore.loading">Loading...</div>
     <div v-else class="grid grid-cols-4 gap-4">
-      <div v-for="product in productStore.filteredProducts" :key="product.id" class="bg-white overflow-hidden rounded-sm flex flex-col justify-between">
+      <div v-for="product in filteredProducts" :key="product.id" class="bg-white overflow-hidden rounded-sm flex flex-col justify-between">
         <div class="flex-1 flex items-center p-2">
           <img :src="product.image" />
         </div>
@@ -31,16 +35,33 @@
         </div>
       </div>
     </div>
+
+    <FormProduct :show="showModal" @close="closeForm" @submit="addProduct" :form="formProduct"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted } from "vue";
+import {onMounted, ref } from "vue";
 import { storeToRefs} from "pinia"
 import {useProductStore} from "@/stores/productStore"
+import FormProduct from "@/components/templates/FormProduct.vue";
 
 const productStore = useProductStore()
-const {sortAsc} = storeToRefs(useProductStore())
+const {sortAsc, filteredProducts} = storeToRefs(useProductStore())
+
+const showModal = ref(false)
+const formProduct = ref({
+  id: 0,
+  title : "",
+  category : "",
+  price : 0,
+  description : "",
+  image : "/src/assets/images/products/additional_image.jpg",
+  rating : {
+    rate : 0,
+    count : 0
+  }
+})
 
 onMounted(()=>{
   productStore.fetchProducts()
@@ -53,4 +74,24 @@ const onSort = () : void =>{
 const editProduct = (product: any): void => {
   console.log("Edit", product);
 };
+
+const addProduct = (product: any) => {
+  productStore.createProduct(product)
+};
+
+const closeForm = () : void =>{
+  showModal.value = false
+  formProduct.value = {
+    id: 0,
+    title : "",
+    category : "",
+    price : 0,
+    description : "",
+    image : "/src/assets/images/products/additional_image.jpg",
+    rating : {
+      rate : 0,
+      count : 0
+    }
+  }
+}
 </script>

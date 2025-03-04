@@ -28,17 +28,24 @@ export const useProductStore = defineStore("productStore", () => {
     }
   }
 
-  const filteredProducts = computed<Product[]>(() =>
-    products.value
+  const filteredProducts = computed<Product[]>(() => {
+    return products.value
       .slice()
       .sort((a, b) => sortAsc.value === true ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title))
       .filter(product =>
         product.title.toLowerCase().includes(searchQuery.value.toLocaleLowerCase())
       )
-  )
+  })
 
   const deleteProducts = (id: number): void => {
     products.value = products.value.filter((product) => product.id !== id)
+  }
+
+  const createProduct = (product: Product): void => {
+    products.value.push({
+      ...product,
+      id: products.value.length + 1
+    })
   }
 
   return {
@@ -48,6 +55,7 @@ export const useProductStore = defineStore("productStore", () => {
     filteredProducts,
     sortAsc,
     fetchProducts,
-    deleteProducts
+    deleteProducts,
+    createProduct
   }
 })

@@ -11,6 +11,6 @@
 </template>
 
 <script setup>
-import Navbar from "@/components/Navbar.vue";
-import Sidebar from "@/components/Sidebar.vue";
+import Navbar from "@/components/templates/Navbar.vue";
+import Sidebar from "@/components/templates/Sidebar.vue";
 </script>
