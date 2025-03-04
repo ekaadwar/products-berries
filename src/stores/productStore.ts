@@ -48,6 +48,10 @@ export const useProductStore = defineStore("productStore", () => {
     })
   }
 
+  const updateProduct = (product: Product): void => {
+    products.value = products.value.map(item => item.id === product.id ? product : item)
+  }
+
   return {
     products,
     loading,
@@ -56,6 +60,7 @@ export const useProductStore = defineStore("productStore", () => {
     sortAsc,
     fetchProducts,
     deleteProducts,
-    createProduct
+    createProduct,
+    updateProduct
   }
 })

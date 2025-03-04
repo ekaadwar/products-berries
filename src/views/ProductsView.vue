@@ -72,7 +72,8 @@ const onSort = () : void =>{
 }
 
 const editProduct = (product: any): void => {
-  console.log("Edit", product);
+  formProduct.value = {...product}
+  showModal.value = true
 };
 
 const addProduct = (product: any) => {
