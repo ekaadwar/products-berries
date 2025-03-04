@@ -1,25 +1,35 @@
 <template>
   <div>
-    <h1>{{ $t("berries") }}</h1>
-    <input type="text" v-model="searchQuery" placeholder="Search..." />
-    <button @click="fetchBerries">Refresh</button>
+    <h1 class="text-2xl">{{ $t("berries") }}</h1>
     
-    <table>
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>Nama</th>
-          <th>Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(berry, index) in filteredBerries" :key="berry.name">
-          <td>{{ index + 1 }}</td>
-          <td>{{ berry.name }}</td>
-          <td><button @click="showDetail(berry)">Detail</button></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="flex justify-center">
+      <div class="w-full sm:w-lg">
+        <div class="flex flex-col sm:flex-row space-y-2 justify-between my-5">
+          <input class="bg-white px-4 py-2 rounded-sm" type="text" v-model="searchQuery" :placeholder="`${ $t('search') }`" />
+          <button class="bg-emerald-300 px-4 py-2 rounded-sm">
+              {{$t("sort")}}
+              <font-awesome-icon :icon="['fas', 'arrow-down-a-z']" />
+              <!-- <font-awesome-icon v-else :icon="['fas', 'arrow-up-a-z']" /> -->
+            </button>
+        </div>
+
+        <table class="w-full">
+        <thead>
+          <tr>
+            <th class="text-left">No</th>
+            <th class="text-left">Nama</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(berry, index) in filteredBerries" :key="berry.name" >
+            <td class="py-2 border-t-1 border-gray-200">{{ index + 1 }}</td>
+            <td class="py-2 border-t-1 border-gray-200">{{ berry.name }}</td>
+            <td class="py-2 border-t-1 border-gray-200"><button class="bg-gray-800 text-white px-4 py-2 rounded-sm" @click="showDetail(berry)"><font-awesome-icon :icon="['fas', 'eye']" /></button></td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
   </div>
 </template>
 
