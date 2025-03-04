@@ -1,5 +1,8 @@
 {
   "products": "Produk",
   "berries": "Buah Berry",
-  "language": "Bahasa"
+  "language": "Bahasa",
+  "refresh": "Segarkan",
+  "search": "Cari",
+  "sort": "Urutkan"
 }

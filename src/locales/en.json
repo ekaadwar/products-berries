@@ -1,5 +1,8 @@
 {
   "products": "Products",
   "berries": "Berries",
-  "language": "Language"
+  "language": "Language",
+  "refresh": "Refresh",
+  "search": "Search",
+  "sort": "Sort"
 }

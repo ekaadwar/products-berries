@@ -1,14 +1,20 @@
 <template>
   <div>
     <h1>{{ $t("products") }}</h1>
+    
     <div class="my-5 ">
-      <input class="bg-white px-4 py-2 rounded-sm mr-2" type="text" v-model="searchQuery" placeholder="Search..." />
-      <button class="bg-green-300 px-4 py-2 rounded-sm" @click="fetchProducts">Refresh</button>
+      <input class="bg-white px-4 py-2 rounded-sm mr-2" type="text" v-model="productStore.searchQuery" :placeholder="`${ $t('search') }`" />
+      <button class="bg-emerald-300 px-4 py-2 rounded-sm" @click="onSort" >
+        {{$t("sort")}}
+        <font-awesome-icon v-if="sortAsc" :icon="['fas', 'arrow-down-a-z']" />
+        <font-awesome-icon v-else :icon="['fas', 'arrow-up-a-z']" />
+      </button>
+      <button class="bg-green-300 px-4 py-2 rounded-sm" @click="productStore.fetchProducts">{{ $t('refresh') }}</button>
     </div>
     
-    <div v-if="loading">Loading...</div>
+    <div v-if="productStore.loading">Loading...</div>
     <div v-else class="grid grid-cols-4 gap-4">
-      <div v-for="product in filteredProducts" :key="product.id" class="bg-white overflow-hidden rounded-sm flex flex-col justify-between">
+      <div v-for="product in productStore.filteredProducts" :key="product.id" class="bg-white overflow-hidden rounded-sm flex flex-col justify-between">
         <div class="flex-1 flex items-center p-2">
           <img :src="product.image" />
         </div>
@@ -20,7 +26,7 @@
           </div>
           <div class="flex justify-between">
             <button class="bg-yellow-400 px-4 py-2 rounded-sm" @click="editProduct(product)">Edit</button>
-            <button class="bg-red-400 px-4 py-2 rounded-sm" @click="deleteProduct(product.id)">Delete</button>
+            <button class="bg-red-400 px-4 py-2 rounded-sm" @click="productStore.deleteProducts(product.id)">Delete</button>
           </div>
         </div>
       </div>
@@ -28,37 +34,23 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted } from "vue";
-import axios from "axios";
+<script setup lang="ts">
+import {onMounted } from "vue";
+import { storeToRefs} from "pinia"
+import {useProductStore} from "@/stores/productStore"
 
-const products = ref([]);
-const searchQuery = ref("");
-const loading = ref(false);
+const productStore = useProductStore()
+const {sortAsc} = storeToRefs(useProductStore())
 
-const fetchProducts = async () => {
-  loading.value = true;
-  try {
-    const res = await axios.get("https://fakestoreapi.com/products");
-    products.value = res.data;
-  } finally {
-    loading.value = false;
-  }
-};
+onMounted(()=>{
+  productStore.fetchProducts()
+})
 
-const filteredProducts = computed(() =>
-  products.value.filter((p) =>
-    p.title.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-);
+const onSort = () : void =>{
+  sortAsc.value = !sortAsc.value
+}
 
-const editProduct = (product) => {
+const editProduct = (product: any): void => {
   console.log("Edit", product);
 };
-
-const deleteProduct = (id) => {
-  products.value = products.value.filter((p) => p.id !== id);
-};
-
-onMounted(fetchProducts);
 </script>

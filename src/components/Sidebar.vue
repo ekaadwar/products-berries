@@ -3,10 +3,10 @@
     <nav class="p-4">
       <ul>
         <li class="mb-2">
-          <router-link to="/products" class="block p-2 hover:bg-gray-700">Products</router-link>
+          <router-link to="/products" class="block p-2 hover:bg-gray-700">{{ $t("products") }}</router-link>
         </li>
         <li>
-          <router-link to="/berries" class="block p-2 hover:bg-gray-700">Berries</router-link>
+          <router-link to="/berries" class="block p-2 hover:bg-gray-700">{{ $t("berries") }}</router-link>
         </li>
       </ul>
     </nav>
