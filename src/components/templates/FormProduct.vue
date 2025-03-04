@@ -1,6 +1,6 @@
 <template>
   <div v-if="show" class="fixed inset-0 bg-black/70 flex items-center justify-center">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 max-h-screen overflow-y-auto">
       <label class="block mb-2">Title</label>
       <input v-model="form.title" type="text" class="w-full p-2 border rounded mb-4" />
       
@@ -23,8 +23,10 @@
       <label class="block mb-2">Count</label>
       <input v-model.number="form.rating.count" type="number" class="w-full p-2 border rounded mb-4" />
 
-      <button class="bg-yellow-400 px-4 py-2 rounded-sm" @click="emit('close')">Close</button>
-      <button @click="handleSubmit" class="bg-blue-500 bg-blue-300 px-4 py-2 rounded-sm">Simpan</button>
+      <div class="flex justify-between">
+        <button class="bg-gray-300 px-4 py-2 rounded-sm" @click="emit('close')">Close</button>
+        <button @click="handleSubmit" class="bg-gray-800 text-white bg-blue-300 px-4 py-2 rounded-sm">Simpan</button>
+      </div>
     </div>
   </div>
 </template>

@@ -2,8 +2,7 @@
   <div class="min-h-screen bg-gray-100 relative">
     <Navbar />
     <div class="flex pt-20">
-      <Sidebar />
-      <main class="flex-1 p-4 ml-64">
+      <main class="flex-1 p-4">
         <router-view />
       </main>
     </div>
